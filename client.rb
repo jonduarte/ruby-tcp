@@ -1,5 +1,4 @@
 require 'socket'
-require 'colorize'
 
 class Client
   def initialize(server)
@@ -16,13 +15,13 @@ class Client
     @response = Thread.new do
       loop do
         msg = @server.gets.chomp
-        puts "MESSAGE: #{msg}"
+        puts "#{msg}"
       end
     end
   end
 
   def send
-    puts "Enter the username:".red.on_blue.underline
+    puts "Enter the username:"
     @request = Thread.new do
       loop do
         msg = $stdin.gets.chomp
@@ -32,4 +31,5 @@ class Client
   end
 end
 
-Client.new(TCPSocket.open(ARGV[0], ARGV[1]))
+server = TCPSocket.open(ARGV[0], ARGV[1])
+Client.new(server)

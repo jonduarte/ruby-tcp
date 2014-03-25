@@ -1,5 +1,4 @@
 require 'socket'
-require 'colorize'
 
 class Server
   def initialize(ip, port)
@@ -24,14 +23,14 @@ class Server
 
         @connections[:clients].each do |other_name, other_client|
           if username == other_name || client == other_client
-            client.puts "Sorry, but this username already exits".red
+            client.puts "Sorry, but this username already exits"
             Thread.kill self
           end
         end
 
         puts "#{username} #{client}"
         @connections[:clients][username] = client
-        client.puts "Connection established. Thank you for joining! Happy chatting.".ligth_blue
+        client.puts "Connection established. Thank you for joining! Happy chatting."
         listen_user_messages(username, client)
       end
     end
@@ -40,8 +39,8 @@ class Server
   def listen_user_messages(username, client)
     loop do
       msg = client.gets.chomp
-      @connection[:clients].each do |other_name, other_client|
-        other_client.puts "#{username.to_s}: #{msg}".green.on_black unless other_name == username
+      @connections[:clients].each do |other_name, other_client|
+        other_client.puts "#{username.to_s}: #{msg}" unless other_name == username
       end
     end
   end
