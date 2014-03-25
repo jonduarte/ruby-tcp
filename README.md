@@ -1,2 +1,4 @@
-ruby-tcp
+JoeChat
 ========
+
+Simple TCP chat
